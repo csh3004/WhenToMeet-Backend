@@ -2,18 +2,12 @@ var express = require('express');
 var router = express.Router();
 const {User} = require('../models')
 
-
-const users = [];
-
-
 router.post('/signup', async (req, res) => {
-  // const { name, userId, userPw, age } = req.body;
-
   try {
-    const exUser = await User.findOne({
+    const idDuplecationCheck = await User.findOne({
       where: { userId: req.body.userId }
     });
-    if (exUser) return res.status(400).send('이미 존재하는 아이디.');
+    if (idDuplecationCheck) return res.status(400).send('이미 존재하는 아이디.');
 
     await User.create({
       name: req.body.name,
@@ -29,18 +23,21 @@ router.post('/signup', async (req, res) => {
 });
 
 
-router.post('/signin', (req, res) =>{
-  const {id, password} = req.body;
-  const user = users.find((user) => user.id === id);
-  if (!user) {
-    res.status(400).send({ message: '존재하지 않는 아이디입니다.' });
-    return;
+router.post('/signin', async (req, res) =>{
+  try {
+    const idCheck = await User.findOne({
+      where: { userId: req.body.userId }
+    });
+    if (!idCheck) return res.status(400).send('존재하지 않는 아이디 입니다.');
+    const pwCheck = await User.findOne({
+      where: { userPw: req.body.userPw }
+    });
+    if (!pwCheck) return res.status(400).send('비밀번호가 틀렸습니다.');
+    res.send({ message: '로그인에 성공했습니다.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('서버 오류');
   }
-  if(!(user.password === password)){
-    res.status(400).send({ message: '비밀번호가 일치하지 않습니다.' });
-    return;
-  }
-  res.send("로그인 성공")
 })
 
 module.exports = router;
