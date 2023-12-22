@@ -1,27 +1,26 @@
-// user.js
+// timeset.js
 const Sequelize = require('sequelize');
 
-module.exports = class User extends Sequelize.Model {
+module.exports = class Timeset extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        name: {
-          type: Sequelize.STRING(20),
-          allowNull: false,
-          unique: true,
-        },
         userId: {
           type: Sequelize.STRING(20),
           allowNull: false,
           unique: true,
+          primaryKey: true,
         },
-        userPw: {
+        day: {
           type: Sequelize.STRING(20),
           allowNull: false,
-          unique: false,
         },
-        age: {
-          type: Sequelize.INTEGER.UNSIGNED,
+        time: {
+          type: Sequelize.STRING(20),
+          allowNull: false,
+        },
+        number: {
+          type: Sequelize.STRING(20),
           allowNull: false,
         },
         created_at: {
@@ -34,8 +33,8 @@ module.exports = class User extends Sequelize.Model {
         sequelize,
         timestamps: false,
         underscored: true,
-        modelName: 'User',
-        tableName: 'users',
+        modelName: 'Timeset',
+        tableName: 'timeset',
         paranoid: false,
         collate: 'utf8_general_ci',
         charset: 'utf8',
@@ -44,7 +43,7 @@ module.exports = class User extends Sequelize.Model {
   }
 
   static associate(models) {
-    // User 모델과 Timeset 모델 간의 일대다(One-to-Many) 관계 설정
-    this.hasMany(models.Timeset, { foreignKey: 'userId', sourceKey: 'userId' });
+    // Timeset 모델과 User 모델 간의 다대일(Many-to-One) 관계 설정
+    this.belongsTo(models.User, { foreignKey: 'userId', targetKey: 'userId' });
   }
 };

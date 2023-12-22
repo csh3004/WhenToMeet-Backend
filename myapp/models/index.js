@@ -8,6 +8,7 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
 const user = require('./users')
+const timeset = require('./timeset')
 const db = {};
 
 let sequelize;
@@ -18,6 +19,7 @@ if (config.use_env_variable) {
 }
 
 db.User = user;
+db.timeset = timeset;
 Object.keys(db).forEach(name => {
     db[name].init(sequelize);
 });
