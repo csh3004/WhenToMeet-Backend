@@ -11,11 +11,7 @@ module.exports = class Timeset extends Sequelize.Model {
           unique: true,
           primaryKey: true,
         },
-        day: {
-          type: Sequelize.STRING(20),
-          allowNull: false,
-        },
-        time: {
+        timeset: {
           type: Sequelize.STRING(20),
           allowNull: false,
         },

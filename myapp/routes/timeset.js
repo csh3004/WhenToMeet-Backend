@@ -1,22 +1,21 @@
 var express = require('express');
 var router = express.Router();
+const TimeSetService = require('../service/timeset');
 
 const timeset = [];
 
-router.post('/send', (req, res) =>{
-    const newTimeset = req.body;
-    if (!timeset) {
-        res.status(400).send({ message: '요일과 시간을 선택해주세요' });
-        return;
-      }
-    timeset.push(newTimeset);
-    console.log(timeset)
-    res.send("일정 저장 완료 완료")
-  })
-
-  router.get('/get', (req, res) => {
-    res.send(timeset);
-  })
+router.post('/send', async (req, res) =>{
+  try {
+    const newTimeSet = req.body;
+    timeset.push(newTimeSet);
+    if(!timeset) return res.status(400).send('날짜와 시간을 올바르게 선택하세요')
+    await TimeSetService.createTimeSet(timeset);
+    res.send({ message: '성공적으로 등록 완료' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('서버 오류');
+  }
+});
 
 
   module.exports = router;
