@@ -27,7 +27,8 @@ module.exports = class User extends Sequelize.Model{
                 allowNull : false,
                 defaultValue : Sequelize.NOW
             }
-        },{
+        },
+        {
             sequelize,
             timestamps : false,
             underscored : true,
