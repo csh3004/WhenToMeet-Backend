@@ -10,7 +10,8 @@ module.exports = class Timeset extends Sequelize.Model {
           allowNull: false,
           unique: true,
           autoIncrement: true,
-          primaryKey: true
+          primaryKey: true,
+          index: true
         },
         day: { //1234567
           type: Sequelize.INTEGER.UNSIGNED,
@@ -42,8 +43,8 @@ module.exports = class Timeset extends Sequelize.Model {
       }
     );
   }
-  // static associate(models) {
-  //   Timeset.hasMany(models.timetable, { foreignKey: 'timesetId' });
-  // }
+  static associate(models) {
+    Timeset.hasMany(models.Timetable, { foreignKey: 'timesetId' });
+  }
 
 };

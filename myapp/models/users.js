@@ -49,8 +49,8 @@ module.exports = class User extends Sequelize.Model {
       }
     );
   }
-  // static associate(models) {
-  //   User.hasMany(models.timetable, { foreignKey: 'index' });
-  // }
+  static associate(models) {
+    User.hasMany(models.Timetable, { foreignKey: 'userNum' });
+  }
 
 };
