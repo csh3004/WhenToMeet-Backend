@@ -5,18 +5,23 @@ module.exports = class Timeset extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        userId: {
-          type: Sequelize.STRING(20),
+        timesetId: {
+          type: Sequelize.INTEGER,
           allowNull: false,
           unique: true,
-          primaryKey: true,
+          autoIncrement: true,
+          primaryKey: true
         },
-        timeset: {
-          type: Sequelize.STRING(20),
+        day: { //1234567
+          type: Sequelize.INTEGER.UNSIGNED,
           allowNull: false,
         },
-        number: {
-          type: Sequelize.STRING(20),
+        start: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        end: {
+          type: Sequelize.STRING,
           allowNull: false,
         },
         created_at: {
@@ -37,9 +42,8 @@ module.exports = class Timeset extends Sequelize.Model {
       }
     );
   }
+  // static associate(models) {
+  //   Timeset.hasMany(models.timetable, { foreignKey: 'timesetId' });
+  // }
 
-  static associate(models) {
-    // Timeset 모델과 User 모델 간의 다대일(Many-to-One) 관계 설정
-    this.belongsTo(models.User, { foreignKey: 'userId', targetKey: 'userId' });
-  }
 };

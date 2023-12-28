@@ -9,8 +9,9 @@ router.post('/send', async (req, res) =>{
     const newTimeSet = req.body;
     timeset.push(newTimeSet);
     if(!timeset) return res.status(400).send('날짜와 시간을 올바르게 선택하세요')
-    await TimeSetService.createTimeSet(timeset);
+    await TimeSetService.createTimeSet(req.body);
     res.send({ message: '성공적으로 등록 완료' });
+    
   } catch (error) {
     console.error(error);
     res.status(500).send('서버 오류');
@@ -18,4 +19,4 @@ router.post('/send', async (req, res) =>{
 });
 
 
-  module.exports = router;
+module.exports = router;

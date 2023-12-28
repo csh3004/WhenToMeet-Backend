@@ -2,6 +2,7 @@
 const Sequelize = require('sequelize');
 const User = require('./users');
 const Timeset = require('./timeset');
+const Timetable = require('./timetable');
 const process = require('process');
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
@@ -16,6 +17,7 @@ if (config.use_env_variable) {
 const db = {
   User: User.init(sequelize),
   Timeset: Timeset.init(sequelize),
+  Timetable: Timetable.init(sequelize)
 };
 
 Object.values(db).forEach(model => {
