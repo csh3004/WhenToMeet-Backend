@@ -12,6 +12,13 @@ class TimetableService {
         timesetId: timesetId
     });
   }
+
+  static async getMyList(){
+    const userId = UsersService.getUserId();
+    return await Timetable.findAll({
+        where: {userNum: userId}
+    })
+  }
 }
 
 module.exports = TimetableService;

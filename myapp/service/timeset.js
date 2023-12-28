@@ -12,6 +12,7 @@ class TimeSetService {
     //   throw new Error('사용자 정보를 찾을 수 없습니다.');
     // }
     return await Timeset.create({
+      timesetId : timeset.timesetId,
       day: timeset.day,
       start: timeset.start,
       end: timeset.end

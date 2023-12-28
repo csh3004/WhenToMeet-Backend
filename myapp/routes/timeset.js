@@ -18,6 +18,16 @@ router.post('/send', async (req, res) =>{
   }
 });
 
+router.get('/getList', async (req, res) =>{
+  try{
+    const myList = await TimetableService.getMyList();
+    res.send(myList);
+  } catch(error){
+    console.error(error);
+    res.status(500).send('서버 오류');
+  }
+});
+
 router.post('/create', async (req,res) => {
   try{
     await TimetableService.createTimetable();
