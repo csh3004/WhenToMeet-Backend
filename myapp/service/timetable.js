@@ -6,10 +6,19 @@ const TimeSetService = require('./timeset');
 class TimetableService {
   static async createTimetable() {
     const userNum = UsersService.getUserNum();
-    const timesetId = await TimeSetService.createTimeSet();
     return await Timetable.create({
+        userNum: userNum
+    });
+  }
+
+  static async deleteTimetable(req) {
+    const userNum = UsersService.getUserNum();
+    const timetableNum = req.timetableNum;
+    return await Timetable.destroy({
+      where:{
         userNum: userNum,
-        timesetId: timesetId
+        timetableNum: timetableNum
+      }
     });
   }
 
@@ -18,7 +27,7 @@ class TimetableService {
     const timetables = await Timetable.findAll({
       where: { userNum: userNum }
     });
-    const timesetIds = timetables.map(timetable => timetable.timesetId);
+    const timesetIds = timetables.map(timetable => timetable.timetableNum);
     return timesetIds;
   }
   

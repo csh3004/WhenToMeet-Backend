@@ -4,6 +4,14 @@ module.exports = class Timetable extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
+        timetableNum: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          unique: true,
+          autoIncrement: true,
+          primaryKey: true,
+          index: true
+        },
         created_at: {
           type: Sequelize.DATE,
           allowNull: false,
@@ -22,9 +30,9 @@ module.exports = class Timetable extends Sequelize.Model {
       }
     );
   }
-
   static associate(models) {
-    Timetable.belongsTo(models.User, { foreignKey: 'userNum' });
-    Timetable.belongsTo(models.Timeset, { foreignKey: 'timesetId' });
-   }
+    Timetable.belongsTo(models.User, {foreignKey: 'userNum'})
+    Timetable.hasMany(models.ScheduleLine, { foreignKey: 'timetableNum' });
+  }
+
 };

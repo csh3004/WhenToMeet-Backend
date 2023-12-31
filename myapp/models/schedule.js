@@ -1,11 +1,10 @@
-// user.js
 const Sequelize = require('sequelize');
 
-module.exports = class User extends Sequelize.Model {
+module.exports = class Schedule extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        userNum: {
+        scheduleNum: {
           type: Sequelize.INTEGER,
           allowNull: false,
           unique: true,
@@ -15,19 +14,19 @@ module.exports = class User extends Sequelize.Model {
         name: {
           type: Sequelize.STRING(20),
           allowNull: false,
-          unique: false,
+          unique: true,
         },
-        userId: {
+        day: {
           type: Sequelize.STRING(20),
           allowNull: false,
           unique: true,
         },
-        userPw: {
+        startTime: {
           type: Sequelize.STRING(20),
           allowNull: false,
           unique: false,
         },
-        age: {
+        endTime: {
           type: Sequelize.INTEGER.UNSIGNED,
           allowNull: false,
         },
@@ -41,8 +40,8 @@ module.exports = class User extends Sequelize.Model {
         sequelize,
         timestamps: false,
         underscored: true,
-        modelName: 'User',
-        tableName: 'users',
+        modelName: 'Schedule',
+        tableName: 'schedules',
         paranoid: false,
         collate: 'utf8_general_ci',
         charset: 'utf8',
@@ -50,7 +49,7 @@ module.exports = class User extends Sequelize.Model {
     );
   }
   static associate(models) {
-    User.hasMany(models.Timetable, { foreignKey: 'userNum' });
+    Schedule.hasMany(models.ScheduleLine, { foreignKey: 'scheduleNum' });
   }
 
 };
