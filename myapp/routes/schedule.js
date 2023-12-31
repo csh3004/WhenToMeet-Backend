@@ -22,12 +22,12 @@ router.post('/insert', async (req,res)=>{
         const userNum = UsersService.getUserNum();
         console.log(userNum)
         const checkTimetable = await TimetableService.checkTimetable(timetableNum, userNum);
-        if(!checkTimetable) res.send('time table 없음')
+        if(!checkTimetable) return res.send('time table 없음')
         console.log(checkTimetable)
         const checkSchedule = await ScheduleService.checkSchedule(scheduleList);
-        if(!checkSchedule) res.send('schedule 없음')
+        if(!checkSchedule)  return res.send('schedule 없음')
         const insertSchedule = await ScheduleService.insertSchedule(timetableNum, scheduleList);
-        if(!insertSchedule) res.send('일정 삽입 실패');
+        if(!insertSchedule)  return res.send('일정 삽입 실패');
         res.send({ message : '일정표에 일정 추가 완료'})
     } catch (error) {
         console.error(error);
