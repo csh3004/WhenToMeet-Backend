@@ -3,20 +3,25 @@ const {Timeset} = require('../models');
 const UsersService = require('./users');
 
 class TimeSetService {
-    constructor() {
-        this.gTimeset = null;
-      }
+    
   static async createTimeSet(timeset) {
-    const userId = UsersService.getUserId();
-    // if (!userId) {
-    //   throw new Error('사용자 정보를 찾을 수 없습니다.');
-    // }
-    return await Timeset.create({
-      timesetId : timeset.timesetId,
-      day: timeset.day,
-      start: timeset.start,
-      end: timeset.end
+    const userId = UsersService.getUserNum();
+    // const timesetId = timeset.timesetId;
+    // this.timesetId = timeset.timesetId;
+    const createdTimeset = await Timeset.create({
+      // timesetId : timeset.timesetId,
+      // day: timeset.day,
+      // start: timeset.start,
+      // end: timeset.end
     });
+
+    // createdTimeset 에서 timesetId 값을 가져옴
+    this.timesetId = createdTimeset.timesetId;
+    return this.timesetId;
+  }
+
+  static async getTimesetId(){
+    return this.timesetId;
   }
 }
 

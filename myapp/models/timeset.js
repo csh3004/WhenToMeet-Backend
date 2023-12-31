@@ -15,15 +15,15 @@ module.exports = class Timeset extends Sequelize.Model {
         },
         day: { //1234567
           type: Sequelize.INTEGER.UNSIGNED,
-          allowNull: false,
+          allowNull: true,
         },
         start: {
           type: Sequelize.STRING,
-          allowNull: false,
+          allowNull: true,
         },
         end: {
           type: Sequelize.STRING,
-          allowNull: false,
+          allowNull: true,
         },
         created_at: {
           type: Sequelize.DATE,

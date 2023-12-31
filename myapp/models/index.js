@@ -26,6 +26,13 @@ Object.values(db).forEach(model => {
   }
 });
 
+sequelize.sync({ force: true }).then(() => {
+  console.log('데이터베이스가 성공적으로 동기화되었습니다.');
+}).catch(err => {
+  console.error('데이터베이스 동기화 중 오류 발생:', err);
+});
+
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
