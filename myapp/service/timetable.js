@@ -1,17 +1,15 @@
 // service/timeset.js
 const {Timetable} = require('../models');
-const UsersService = require('./users');
+const UserService = require('./users');
 
 class TimetableService {
-  static async createTimetable() {
-    const userNum = UsersService.getUserNum();
+  static async createTimetable(userNum) {
     return await Timetable.create({
         userNum: userNum
     });
   }
 
-  static async deleteTimetable(req) {
-    const userNum = UsersService.getUserNum();
+  static async deleteTimetable(req, userNum) {
     const timetableNum = req.timetableNum;
     return await Timetable.destroy({
       where:{
@@ -21,13 +19,27 @@ class TimetableService {
     });
   }
 
-  static async getMyList(){
-    const userNum = UsersService.getUserNum();
+  static async getMyList(userNum){
     const timetables = await Timetable.findAll({
       where: { userNum: userNum }
     });
     const timesetIds = timetables.map(timetable => timetable.timetableNum);
     return timesetIds;
+  }
+
+  static async checkTimetable(timetableNum, userNum){
+    const timetables = await Timetable.findOne({
+      where: { 
+        userNum: userNum,
+        timetableNum: timetableNum
+        }
+    });
+    if(timetables){
+      console.log("dd")
+      return true;
+    } 
+    console.log("false")
+    return false;
   }
   
 }
