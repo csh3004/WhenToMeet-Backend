@@ -1,7 +1,6 @@
 // service/timeset.js
 const {Timetable} = require('../models');
 const UsersService = require('./users');
-const TimeSetService = require('./timeset');
 
 class TimetableService {
   static async createTimetable() {
