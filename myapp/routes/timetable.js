@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-const TimeSetService = require('../service/timeset');
 const TimetableService = require('../service/timetable');
 
 router.get('/getList', async (req, res) =>{
