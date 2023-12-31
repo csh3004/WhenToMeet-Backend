@@ -23,7 +23,12 @@ router.post('/signin', async (req, res) => {
     const pwCheck = await UsersService.findUserByPassword(req.body.userPw);
     if (!pwCheck) return res.status(400).send('비밀번호가 틀렸습니다.');
 
-    res.send({ message: '로그인에 성공했습니다.' });
+    const user = await UsersService.signin(req.body.userId, req.body.userPw);
+    if(user) {
+      res.send("로그인 성공")
+    } else{
+      res.status(500).send('서버 오류');
+    }
   } catch (error) {
     console.error(error);
     res.status(500).send('서버 오류');

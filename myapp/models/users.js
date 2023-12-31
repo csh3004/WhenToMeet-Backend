@@ -5,10 +5,17 @@ module.exports = class User extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
+        userNum: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          unique: true,
+          autoIncrement: true,
+          primaryKey: true
+        },
         name: {
           type: Sequelize.STRING(20),
           allowNull: false,
-          unique: true,
+          unique: false,
         },
         userId: {
           type: Sequelize.STRING(20),
@@ -42,9 +49,8 @@ module.exports = class User extends Sequelize.Model {
       }
     );
   }
-
   static associate(models) {
-    // User 모델과 Timeset 모델 간의 일대다(One-to-Many) 관계 설정
-    this.hasMany(models.Timeset, { foreignKey: 'userId', sourceKey: 'userId' });
+    User.hasMany(models.Timetable, { foreignKey: 'userNum' });
   }
+
 };
