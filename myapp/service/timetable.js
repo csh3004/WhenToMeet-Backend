@@ -15,10 +15,13 @@ class TimetableService {
 
   static async getMyList(){
     const userNum = UsersService.getUserNum();
-    return await Timetable.findAll({
-        where: {userNum: userNum}
-    })
+    const timetables = await Timetable.findAll({
+      where: { userNum: userNum }
+    });
+    const timesetIds = timetables.map(timetable => timetable.timesetId);
+    return timesetIds;
   }
+  
 }
 
 module.exports = TimetableService;
