@@ -14,12 +14,12 @@ module.exports = class Schedule extends Sequelize.Model {
         name: {
           type: Sequelize.STRING(20),
           allowNull: false,
-          unique: true,
+          unique: false,
         },
         day: {
           type: Sequelize.STRING(20),
           allowNull: false,
-          unique: true,
+          unique: false,
         },
         startTime: {
           type: Sequelize.STRING(20),

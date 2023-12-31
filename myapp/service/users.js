@@ -2,7 +2,7 @@
 const { User } = require('../models');
 
 
-class UsersService {
+class UserService {
   static async checkDuplicateUserId(userId) {
     return await User.findOne({
       where: { userId: userId }
@@ -18,7 +18,6 @@ class UsersService {
     });
   }
   
-
   static async findUserById(userId) {
     return await User.findOne({
       where: { userId: userId }
@@ -50,4 +49,4 @@ class UsersService {
   }
 }
 
-module.exports = UsersService;
+module.exports = UserService;
