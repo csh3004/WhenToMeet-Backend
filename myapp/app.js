@@ -6,9 +6,9 @@ var logger = require('morgan');
 var cors = require('cors');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var timesetRouter = require('./routes/timetable');
-var scheduleRouter = require('./routes/schedule');
+var usersRouter = require('./routes/usersRoute');
+var timesetRouter = require('./routes/timetableRoute');
+var scheduleRouter = require('./routes/scheduleRoute');
 const { sequelize } = require('./models');
 
 sequelize.sync({force : false})
