@@ -33,3 +33,13 @@ module.exports.delete = async (req, res, next) => {
         return res.status(500).send('서버 오류');
       }
 }
+module.exports.getMyTimeTable = async (req, res, next) => {
+    try{
+        // const userNum = usersService.getUserNum();
+        const myTimetable = await timetableService.getMyTimeTable(req.body.timetableNum);
+        return res.send(myTimetable);
+      } catch(error){
+        console.error(error);
+        return res.status(500).send('서버 오류');
+      }
+}

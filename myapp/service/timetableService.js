@@ -1,5 +1,6 @@
 // service/timeset.js
 const {Timetable} = require('../models');
+const {ScheduleLine} = require('../models')
 const UserService = require('./usersService');
 
 class TimetableService {
@@ -25,6 +26,14 @@ class TimetableService {
     });
     const timesetIds = timetables.map(timetable => timetable.timetableNum);
     return timesetIds;
+  }
+  
+  static async getMyTimeTable(timetableNum){
+    const scheduleLines = await ScheduleLine.findAll({
+      where: { timetableNum: timetableNum }
+    });
+    const schedules = scheduleLines.map(scheduleLine => scheduleLine.scheduleNum);
+    return schedules;
   }
 
   static async checkTimetable(timetableNum, userNum){
