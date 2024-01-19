@@ -1,6 +1,6 @@
 // service/timeset.js
 const {Schedule} = require('../models');
-const UsersService = require('./users');
+const UsersService = require('./usersService');
 const {ScheduleLine} = require('../models');
 
 
